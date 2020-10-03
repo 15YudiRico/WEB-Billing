@@ -7,12 +7,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="assets/bill.png" rel="apple-touch-icon">
+    <link href="assets/bill.png" rel="shortcut icon" type="image/x-icon">
 
     <title>Web Billing</title>
   </head>
   <body>
     <div class="container">
-        <h2 class="mt-2 text-center">Billing Apps</h2>
+        <h2 class="mt-4 text-center mb-3">Billing Apps</h2>
         <table class="table">
             <thead>
               <tr>
@@ -22,25 +24,77 @@
                 <th scope="col w-100">options</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Table</td>
-                <td>12</td>
+            <tbody  id="data">
+              
+            </tbody>
+          </table>
+          
+      <form id='add-form'>
+          <div class="form-group">
+              <label for="exampleFormControlInput1">Product name</label>
+              <input type="text" name="product" class="form-control" id="exampleFormControlInput1" placeholder="Product name exm:Table, chair">
+          </div>
+          <div class="form-group">
+              <label for="exampleFormControlSelect1">Quantity</label>
+              <select class="form-control" id="exampleFormControlSelect1" name="quantity">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="exampleFormControlTextarea1">Description</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name='desc' rows="3" placeholder="Description"></textarea>
+          </div>
+          <div class="d-flex flex-row justify-content-center">
+            <input type="submit" class="btn btn-success" value="Add Product"></input>
+          </div>
+      </form>
+
+    </div>
+
+    <script>
+      const del = () => {
+        alert('Delete Product')
+      }
+
+      const data = []
+      const form = document.getElementById('add-form')
+
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const name = e.target.product.value
+        const qty = e.target.quantity.value
+        const desc = e.target.desc.value
+
+        data.push({
+          name,
+          qty,
+          desc
+        })
+
+        data.map((one, key) => {
+          const print = document.getElementById('data')
+            print.innerHTML += `
+            <tr>
+                <th scope="row">${key + 1}</th>
+                <td>${one.name}</td>
+                <td>${one.qty}</td>
                 <td>
                     <div class="d-flex flex-row">
-                        <button type="button" class="btn btn-primary mr-3">edit</button>
-                        <button type="button" class="btn btn-danger">delete</button>
+                        <a href="/pages/editProduct.html" class="btn btn-primary mr-3">edit</a>
+                        <button type="button" class="btn btn-danger" onclick="del()">delete</button>
                     </div>
                 </td>
               </tr>
-            </tbody>
-          </table>
-          <div class="d-flex flex-row-reverse">
-            <a href="#" type="button" class="btn btn-success">Add Product</a >
-          </div>
-    </div>
+            `
+        })
 
+      })
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
